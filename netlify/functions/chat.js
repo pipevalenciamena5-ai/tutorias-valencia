@@ -11,47 +11,75 @@ exports.handler = async function(event, context) {
       return { statusCode: 500, body: JSON.stringify({ reply: "Falta configurar la clave de Gemini en Netlify." }) };
     }
 
-    // Controlador para evitar que la petición se quede colgada más de 9 segundos
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 9000);
+    // Instrucciones y datos reales para que TutorBot sepa qué responder
+    const systemPrompt = `Eres TutorBot, el asistente virtual oficial de Tutorías Valencia (liderado por Andrés Felipe Valencia Mena).
+Tu función es responder dudas sobre horarios, materias, tarifas, metodología y cómo reservar sesiones.
+Reglas estrictas:
+- NUNCA resuelvas tareas, exámenes ni ejercicios académicos; explica que nuestro enfoque es enseñar paso a paso para que el estudiante domine el tema.
+- Sé amable, directo, profesional y breve (máximo 3-4 líneas por respuesta).
+- Si preguntan por precios/tarifas: explica que manejamos planes flexibles por sesión individual o paquetes mensuales con descuento (puedes invitarlos a usar la calculadora de tarifas en la página o escribir al WhatsApp 315 887 6852 para cotizar según el grado y materia).
+- Si quieren agendar o hablar con un asesor: dales el WhatsApp 315 887 6852 o el correo pipevalenciamena5@gmail.com.`;
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ role: "user", parts: [{ text: message }] }]
-      }),
-      signal: controller.signal
-    });
+    // Función auxiliar para consultar un modelo con límite de tiempo
+    async function askGemini(modelName, timeoutMs) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
-    clearTimeout(timeoutId);
-    const data = await response.json();
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: {
+              parts: [{ text: systemPrompt }]
+            },
+            contents: [{ role: "user", parts: [{ text: message }] }],
+            generationConfig: {
+              maxOutputTokens: 250,
+              temperature: 0.7
+            }
+          }),
+          signal: controller.signal
+        });
 
-    if (!response.ok) {
-      console.error("Error de Google API:", data);
-      return { 
-        statusCode: 200, 
-        body: JSON.stringify({ reply: "El servicio de IA está experimentando alta demanda temporalmente. Inténtalo de nuevo en unos segundos." }) 
-      };
+        clearTimeout(timeoutId);
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error?.message || `HTTP ${res.status}`);
+        }
+
+        return data.candidates?.[0]?.content?.parts?.[0]?.text;
+      } catch (err) {
+        clearTimeout(timeoutId);
+        throw err;
+      }
     }
 
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "No se pudo obtener respuesta del modelo.";
+    // Intento 1: Modelo principal (límite 6.5 segundos)
+    // Intento 2: Modelo ligero de respaldo si el principal está lento o saturado
+    let reply = null;
+    try {
+      reply = await askGemini("gemini-3.8-flash", 6500);
+    } catch (primaryError) {
+      console.warn("Modelo principal lento o saturado, cambiando a modelo ligero:", primaryError.message);
+      reply = await askGemini("gemini-3.8-flash-lite", 8000);
+    }
 
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ reply })
+      body: JSON.stringify({ reply: reply || "No pude generar una respuesta. Escríbenos al WhatsApp 315 887 6852." })
     };
-  } catch (error) {
-    console.error("Error en la función:", error);
-    const isTimeout = error.name === 'AbortError';
-    const errorMessage = isTimeout 
-      ? "El servidor tardó demasiado en responder debido a tráfico alto. Por favor, prueba otra vez." 
-      : "Error interno: " + error.message;
 
+  } catch (error) {
+    console.error("Error definitivo en TutorBot:", error.message);
     return {
       statusCode: 200,
-      body: JSON.stringify({ reply: errorMessage })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        reply: "Estamos recibiendo muchas consultas en este momento. Puedes cotizar o agendar directamente por WhatsApp al 315 887 6852." 
+      })
     };
   }
 };
