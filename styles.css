@@ -130,3 +130,15 @@ legend{color:var(--mute);font-size:.82rem;padding:0 6px}
 .close{background:none;border:1px solid var(--line);color:var(--mute);border-radius:10px;width:36px;height:36px;cursor:pointer;font:inherit}
 .m a{font-weight:600}
 @media(max-width:560px){.bot-launch span{display:none}.bot-launch{padding:6px}}
+
+/* ===== CONTENIDO VISUAL Y EXPERIENCIA DE CLASE ===== */
+.heroimg{object-position:center;opacity:.25}
+.lesson-grid{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.lesson-card{overflow:hidden;padding:0}
+.lesson-card>img{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover;border-bottom:1px solid var(--line)}
+.lesson-card>.tag,.lesson-card>h3,.lesson-card>p{margin-left:24px;margin-right:24px}
+.lesson-card>.tag{margin-top:20px}
+.lesson-card>h3{margin-top:12px}
+.lesson-card>p{margin-bottom:24px}
+.lead-card .ph img{object-position:center 28%}
+@media(max-width:560px){.lesson-card>img{aspect-ratio:16/9}}

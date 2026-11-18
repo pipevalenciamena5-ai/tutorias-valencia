@@ -13,10 +13,10 @@
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="mascot" viewBox="0 0 64 64"><line x1="32" y1="7" x2="32" y2="14" stroke="#19e6a2" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="5" r="3.5" fill="#19e6a2"/><rect x="10" y="14" width="44" height="36" rx="14" fill="#102019" stroke="#19e6a2" stroke-width="2.5"/><circle cx="23" cy="31" r="5.5" fill="#19e6a2"/><circle cx="41" cy="31" r="5.5" fill="#19e6a2"/><circle cx="24.5" cy="29.5" r="1.8" fill="#03130d"/><circle cx="42.5" cy="29.5" r="1.8" fill="#03130d"/><path d="M24 41q8 6 16 0" stroke="#19e6a2" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="4" y="26" width="6" height="12" rx="3" fill="#19e6a2"/><rect x="54" y="26" width="6" height="12" rx="3" fill="#19e6a2"/></symbol></svg>
 <a class="skip" href="#main">Saltar al contenido</a>
-<div class="dbanner" id="banner" role="note" hidden>Sitio en preparación: las tarifas, los horarios, los perfiles marcados «de ejemplo» y las políticas se confirman antes de la versión final.</div>
-<nav aria-label="Principal"><div class="w"><a class="brand" href="#inicio" aria-label="Andrés Valencia, inicio">Andrés Valencia<span class="bx"><i> ·</i> Tutorías</span></a><div style="display:flex;align-items:center"><a class="l" href="#propuesta">Propuesta</a><a class="l" href="#equipo">Equipo</a><a class="l" href="#servicios">Servicios</a><a class="l" href="#tarifas">Tarifas</a><a class="l" href="#contacto">Contacto</a><a class="btn s" href="#contacto">Clase diagnóstica</a></div></div></nav>
 
-<header class="hero" id="inicio"><img class="heroimg" src="assets/img/hero.webp" alt="" onerror="this.remove()">
+<nav aria-label="Principal"><div class="w"><a class="brand" href="#inicio" aria-label="Andrés Valencia, inicio">Andrés Valencia<span class="bx"><i> ·</i> Tutorías</span></a><div style="display:flex;align-items:center"><a class="l" href="#propuesta">Propuesta</a><a class="l" href="#equipo">Equipo</a><a class="l" href="#servicios">Servicios</a><a class="l" href="#clases">Clases</a><a class="l" href="#tarifas">Tarifas</a><a class="l" href="#contacto">Contacto</a><a class="btn s" href="#contacto">Clase diagnóstica</a></div></div></nav>
+
+<header class="hero" id="inicio"><img class="heroimg" src="assets/img/hero-matematicas.svg" alt="" aria-hidden="true">
 <svg class="curve" viewBox="0 0 400 260" fill="none" aria-hidden="true"><path d="M0 130 Q50 10 100 130 T200 130 T300 130 T400 130" stroke="#19e6a2" stroke-width="2"/><path d="M0 210 L400 210 M20 0 L20 260" stroke="#173229"/></svg>
 <div class="w hg"><div>
 <div class="eyebrow">Tutorías de alto rendimiento · Grados 6.º a 11.º</div>
@@ -32,12 +32,12 @@
 <section id="propuesta"><div class="w"><div class="eyebrow">Propuesta de valor</div><h2>Por qué elegir un enfoque distinto</h2><p class="lead">No se trata de hacer más ejercicios, sino de medir dónde está la brecha y cerrarla con un plan.</p><div class="grid" id="df"></div>
 <div class="scroll"><table class="cmp"><caption class="sr">Comparación entre tutoría tradicional y este enfoque</caption><thead><tr><th scope="col">Aspecto</th><th scope="col">Tutoría tradicional</th><th scope="col">Nuestro enfoque</th></tr></thead><tbody id="cp"></tbody></table></div></div></section>
 
-<section class="alt" id="equipo"><div class="w"><div class="eyebrow">El equipo docente</div><h2>Quién te acompaña</h2>
-<article class="card lead-card"><div class="ph"><span aria-hidden="true">A</span><img src="assets/img/docente.webp" alt="Retrato de Andrés Felipe Valencia Mena" loading="lazy" onerror="this.remove()"></div>
+<section class="alt" id="equipo"><div class="w"><div class="eyebrow">Docente principal</div><h2>Quién te acompaña</h2>
+<article class="card lead-card"><div class="ph"><img src="assets/img/docente.jpg" alt="Retrato de Andrés Felipe Valencia Mena" loading="lazy"></div>
 <div><h3>Andrés Felipe Valencia Mena</h3><p class="note" style="margin:2px 0 10px">Fundador y docente líder</p>
 <p>Ingeniero de software en formación, desarrollador full-stack con énfasis en backend y docente de matemáticas de 9.º y 10.º. Combina lógica, matemáticas aplicadas y métodos de estudio eficientes para que el estudiante entienda el porqué de cada procedimiento.</p>
 <ul class="chips2"><li>ICFES Saber 11.º: 357/500</li><li>Lógica y matemáticas aplicadas</li><li>Programación y backend</li><li>Metodologías de aprendizaje eficientes</li></ul></div></article>
-<h3 style="margin-top:44px">Directorio de docentes</h3><p class="lead">Filtra por área, día y modalidad, y elige con quién quieres tu clase.</p>
+<h3 style="margin-top:44px">Áreas de acompañamiento</h3><p class="lead">Actualmente las clases son dirigidas por Andrés. Selecciona el área y la modalidad al solicitar tu sesión.</p>
 <div class="filters" role="search"><div><label for="fa">Área</label><select id="fa"></select></div><div><label for="fd">Día</label><select id="fd"></select></div><div><label for="fmo2">Modalidad</label><select id="fmo2"></select></div></div>
 <div class="grid" id="dir" aria-live="polite"></div></div></section>
 
@@ -45,15 +45,22 @@
 
 <section class="alt" id="metodo"><div class="w"><div class="eyebrow">Metodología</div><h2>Cuatro pasos, con indicadores</h2><div class="grid" id="mt"></div></div></section>
 
+<section id="clases"><div class="w"><div class="eyebrow">Experiencia de aprendizaje</div><h2>Así se desarrolla una clase</h2><p class="lead">Estas son muestras ilustrativas de actividades y dinámicas que pueden adaptarse al grado, los objetivos y el ritmo de cada estudiante.</p>
+<div class="grid lesson-grid">
+<article class="card lesson-card"><img src="assets/img/clase-diagnostico.svg" alt="Ilustración de diagnóstico académico" loading="lazy"><span class="tag">Momento 1</span><h3>Comprender antes de resolver</h3><p>Empezamos con preguntas cortas y ejercicios de diagnóstico. Identificamos qué conceptos domina el estudiante, dónde aparecen los errores y qué conocimientos previos necesita reforzar.</p></article>
+<article class="card lesson-card"><img src="assets/img/clase-guiada.svg" alt="Ilustración de explicación guiada" loading="lazy"><span class="tag">Momento 2</span><h3>Explicación y práctica guiada</h3><p>Desarrollamos el tema paso a paso, resolvemos un ejercicio modelo juntos y luego el estudiante intenta ejercicios similares. La prioridad es que pueda explicar por qué aplica cada procedimiento.</p></article>
+<article class="card lesson-card"><img src="assets/img/clase-reto.svg" alt="Ilustración de reto matemático" loading="lazy"><span class="tag">Momento 3</span><h3>Aplicar y revisar errores</h3><p>Terminamos con un reto de aplicación y una revisión de errores frecuentes. Se deja una práctica breve y se registra qué conviene retomar en la siguiente sesión.</p></article>
+</div></div></section>
+
 <section id="niveles"><div class="w"><div class="eyebrow">Niveles y temas</div><h2>De 6.º a 11.º, módulo por módulo</h2><div class="grid" id="nv"></div></div></section>
 
-<section class="alt" id="tarifas"><div class="w"><div class="eyebrow">Horarios, modalidades y tarifas</div><h2>Inversión clara desde el principio<span class="tag ej">por confirmar</span></h2>
+<section class="alt" id="tarifas"><div class="w"><div class="eyebrow">Horarios, modalidades y tarifas</div><h2>Inversión clara desde el principio</h2>
 <p class="lead">Clases individuales o en grupo pequeño, presenciales en Medellín o virtuales. Horario base: lunes a viernes de 4:00 p. m. a 8:00 p. m. y sábados en la mañana. Valores en pesos colombianos. Simula tu reserva: no se cobra nada y no se piden datos de pago.</p>
 <div class="steps" id="st"><div class="on">1 · Paquete</div><div>2 · Método de pago</div><div>3 · Comprobante</div></div><div class="pay" id="py" aria-live="polite"></div></div></section>
 
 <section id="recursos"><div class="w"><div class="eyebrow">Recursos académicos gratuitos</div><h2>Practica primero, revisa después</h2><p class="lead">Cada guía se descarga en PDF sin respuestas. Las soluciones están en un documento independiente para favorecer el autoestudio.</p><div class="grid" id="gd"></div><p class="note" id="gn" role="status" aria-live="polite" style="margin-top:12px"></p></div></section>
 
-<section class="alt" id="tutorbot"><div class="w tb"><svg class="mbig" role="img" aria-label="Mascota virtual TutorBot"><use href="#mascot"/></svg><div><div class="eyebrow">TutorBot · Asistente con IA</div><h2>Resuelve tus dudas sobre las tutorías</h2><p class="lead">Responde sobre horarios, temarios, tarifas, docentes y cómo reservar. No resuelve tareas ni inventa datos: si no sabe algo, te deriva con una persona por WhatsApp.</p><p><button class="btn" id="bo" type="button">Hablar con TutorBot</button></p></div></div></section>
+
 
 <section id="plan"><div class="w"><div class="eyebrow">Calculadora de plan con IA</div><h2>Tu plan y una cotización estimada</h2>
 <div class="panel box"><div class="two"><div><label for="cg">Grado</label><select id="cg"><option>6.º</option><option>7.º</option><option>8.º</option><option>9.º</option><option selected>10.º</option><option>11.º</option></select></div><div><label for="ch">Horas por semana</label><select id="ch"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></div></div>
@@ -62,7 +69,7 @@
 <p style="margin:16px 0 0"><button class="btn" id="cb" type="button">Calcular plan</button></p><div class="res" id="cr" hidden aria-live="polite"></div>
 <div class="res" id="cfb" hidden><b>¿Prefieres que te armemos el plan directamente?</b><br>Escríbenos y lo preparamos contigo.<div class="dl"><a class="btn s" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a><a class="btn s g" href="mailto:pipevalenciamena5@gmail.com">Correo</a><a class="btn s g" href="#contacto">Formulario</a></div></div></div></div></section>
 
-<section class="alt" id="exitos" hidden><div class="w"><div class="eyebrow">Casos de éxito</div><h2>Lo que dicen estudiantes y familias</h2><div class="grid" id="ts"></div></div></section>
+
 
 <section id="faq"><div class="w"><div class="eyebrow">Preguntas frecuentes</div><h2>Resolvemos las dudas comunes</h2><div id="fq" style="max-width:780px;margin-top:20px"></div></div></section>
 
@@ -79,16 +86,10 @@
 <section class="legal" id="legal"><div class="w"><div class="eyebrow">Aviso legal</div><h2>Términos, condiciones y privacidad</h2>
 <h3>Términos y condiciones</h3><p>Las tutorías son un servicio de apoyo académico. No se garantizan notas, ingreso a una universidad ni puntajes específicos, porque dependen también del trabajo del estudiante. Las tarifas, horarios y modalidades publicados se confirman por escrito con el adulto responsable antes de iniciar. El simulador de reserva no genera cobros ni compromisos. Las políticas de cancelación y reprogramación se acuerdan al agendar. Los materiales descargables son para uso personal y educativo.</p>
 <h3>Política de privacidad</h3><p><b>Responsable:</b> Andrés Felipe Valencia Mena, pipevalenciamena5@gmail.com. Los estudiantes pueden ser menores de edad, por eso toda solicitud la hace un adulto responsable que autoriza expresamente el uso de los datos. Se piden solo los necesarios para responder: nombre, contacto, grado, modalidad y mensaje. Este sitio no guarda esos datos: se envían por el WhatsApp o el correo que tú abres. El simulador de pago no pide números de tarjeta ni datos bancarios. Los datos se usan únicamente para responder la solicitud y coordinar las clases, y no se publican. Puedes pedir conocer, actualizar, rectificar o suprimir tus datos escribiendo al correo indicado. Marco de referencia: Ley 1581 de 2012 (Colombia).</p>
-<h3>TutorBot (asistente con IA)</h3><p>Sus respuestas se generan automáticamente con la tecnología de Google (Gemini), pueden contener errores y no reemplazan la confirmación directa con el docente. No escribas datos personales en el chat. Las consultas se envían a Google para generar la respuesta.</p></div></section>
+</div></section>
 </main>
 
-<footer><div class="w">© Andrés Valencia · Tutorías de alto rendimiento <span class="ej">(sitio en preparación)</span> · <a href="mailto:pipevalenciamena5@gmail.com">pipevalenciamena5@gmail.com</a> · <a href="#legal">Términos y privacidad</a></div></footer>
+<footer><div class="w">© Andrés Valencia · Tutorías de alto rendimiento  · <a href="mailto:pipevalenciamena5@gmail.com">pipevalenciamena5@gmail.com</a> · <a href="#legal">Términos y privacidad</a></div></footer>
 
-<button class="bot-launch" id="bl" type="button" aria-haspopup="dialog" aria-controls="bp" aria-expanded="false"><svg width="34" height="34" aria-hidden="true" focusable="false"><use href="#mascot"/></svg><span>TutorBot</span></button>
-<section class="bot-panel" id="bp" role="dialog" aria-modal="false" aria-labelledby="bt" hidden>
-<div class="bh"><svg width="34" height="34" aria-hidden="true" focusable="false"><use href="#mascot"/></svg><b id="bt">TutorBot</b><button type="button" id="bx" class="close" aria-label="Cerrar chat">✕</button></div>
-<div id="log" role="log" aria-live="polite"><div class="m a">Hola, soy TutorBot. Te ayudo con horarios, temas, tarifas, docentes y cómo reservar. No resuelvo tareas.</div></div>
-<div class="row"><input id="aq" maxlength="500" placeholder="Escribe tu pregunta" aria-label="Tu pregunta para TutorBot"><button class="btn s" id="ab" type="button">Enviar</button></div>
-<p class="note" style="margin:8px 0 0">Respuestas automáticas, pueden tener errores. <a data-wa href="#" target="_blank" rel="noopener" style="color:var(--em)">Hablar con una persona</a></p></section>
 </body>
 </html>
