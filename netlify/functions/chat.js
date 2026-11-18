@@ -11,40 +11,27 @@ exports.handler = async function(event, context) {
       return { statusCode: 500, body: JSON.stringify({ reply: "Falta configurar la clave de Gemini en Netlify." }) };
     }
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`;
-    const payload = {
+    // Controlador para evitar que la petición se quede colgada más de 9 segundos
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 9000);
+
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ role: "user", parts: [{ text: message }] }]
-      })
-    };
+      }),
+      signal: controller.signal
+    });
 
-    let response;
-    let data;
-    let retries = 3;
-    let delay = 1000;
-
-    // Lógica para reintentar automáticamente si Google devuelve 503 (alta demanda)
-    for (let i = 0; i < retries; i++) {
-      response = await fetch(url, payload);
-      data = await response.json();
-
-      if (response.status === 503 && i < retries - 1) {
-        console.warn(`Intento ${i + 1} fallido por alta demanda (503). Reintentando en ${delay}ms...`);
-        await new Promise(resolve => setTimeout(resolve, delay));
-        delay *= 2; // Espera exponencial
-        continue;
-      }
-      break;
-    }
-
-    console.log("Respuesta de Google API:", JSON.stringify(data));
+    clearTimeout(timeoutId);
+    const data = await response.json();
 
     if (!response.ok) {
+      console.error("Error de Google API:", data);
       return { 
-        statusCode: 500, 
-        body: JSON.stringify({ reply: "El servidor de IA está ocupado en este momento debido a alta demanda. Por favor, intenta enviar tu mensaje de nuevo en unos segundos." }) 
+        statusCode: 200, 
+        body: JSON.stringify({ reply: "El servicio de IA está experimentando alta demanda temporalmente. Inténtalo de nuevo en unos segundos." }) 
       };
     }
 
@@ -57,9 +44,14 @@ exports.handler = async function(event, context) {
     };
   } catch (error) {
     console.error("Error en la función:", error);
+    const isTimeout = error.name === 'AbortError';
+    const errorMessage = isTimeout 
+      ? "El servidor tardó demasiado en responder debido a tráfico alto. Por favor, prueba otra vez." 
+      : "Error interno: " + error.message;
+
     return {
-      statusCode: 500,
-      body: JSON.stringify({ reply: "Error interno: " + error.message })
+      statusCode: 200,
+      body: JSON.stringify({ reply: errorMessage })
     };
   }
 };
