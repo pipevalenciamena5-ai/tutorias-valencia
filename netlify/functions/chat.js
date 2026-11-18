@@ -1,4 +1,4 @@
-export async function handler(event, context) {
+exports.handler = async function(event, context) {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: JSON.stringify({ error: "Method Not Allowed" }) };
   }
@@ -8,14 +8,11 @@ export async function handler(event, context) {
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
-      return { statusCode: 500, body: JSON.stringify({ reply: "El asistente no está configurado en el servidor." }) };
+      console.error("Falta GEMINI_API_KEY en las variables de entorno");
+      return { statusCode: 500, body: JSON.stringify({ reply: "Falta configurar la clave de Gemini en Netlify." }) };
     }
 
-    if (!message || message.trim() === "") {
-      return { statusCode: 400, body: JSON.stringify({ error: "Mensaje vacío" }) };
-    }
-
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -24,7 +21,13 @@ export async function handler(event, context) {
     });
 
     const data = await response.json();
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "No pude generar una respuesta en este momento.";
+    console.log("Respuesta de Google API:", JSON.stringify(data));
+
+    if (!response.ok) {
+      return { statusCode: 500, body: JSON.stringify({ reply: "Error de Google: " + (data.error?.message || response.status) }) };
+    }
+
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "No se pudo obtener respuesta del modelo.";
 
     return {
       statusCode: 200,
@@ -32,9 +35,10 @@ export async function handler(event, context) {
       body: JSON.stringify({ reply })
     };
   } catch (error) {
+    console.error("Error en la función:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ reply: "Error al conectar con la inteligencia artificial." })
+      body: JSON.stringify({ reply: "Error interno: " + error.message })
     };
   }
-}
+};
