@@ -129,3 +129,27 @@ function ok(){var s=$("fs");
 $("cf").onsubmit=function(e){e.preventDefault();if(!ok())return;window.open("https://wa.me/"+CFG.wa+"?text="+encodeURIComponent(msg()),"_blank","noopener");$("fs").textContent="Se abrió WhatsApp con tu mensaje; envíalo desde allí."};
 $("bm").onclick=function(){if(!ok())return;location.href="mailto:"+CFG.mail+"?subject="+encodeURIComponent("Clase diagnóstica")+"&body="+encodeURIComponent(msg());$("fs").textContent="Se abrió tu correo con el mensaje; envíalo desde allí."};
 })();
+// En tu archivo JavaScript del frontend
+function responderTutorBot(mensajeUsuario) {
+  const texto = mensajeUsuario.toLowerCase();
+  let respuesta = "";
+
+  // Detección de intenciones por palabras clave
+  if (texto.includes("precio") || texto.includes("tarifa") || texto.includes("cuánto cuesta") || texto.includes("costo")) {
+    respuesta = "Manejamos planes flexibles por sesión individual o paquetes mensuales con descuento. Puedes cotizar según tu grado y materia escribiendo directamente a nuestro WhatsApp 315 887 6852.";
+  } 
+  else if (texto.includes("horario") || texto.includes("cuando") || texto.includes("disponibilidad")) {
+    respuesta = "Trabajamos de lunes a sábado con horarios adaptados al estudiante. Escríbenos al WhatsApp 315 887 6852 para consultar la disponibilidad exacta del docente.";
+  } 
+  else if (texto.includes("materia") || texto.includes("curso") || texto.includes("matemática") || texto.includes("programación")) {
+    respuesta = "Ofrecemos tutorías personalizadas en matemáticas, física, programación y refuerzo escolar de 6° a 11°. ¿Qué materia necesitas repasar? Escríbenos al WhatsApp 315 887 6852.";
+  } 
+  else if (texto.includes("tarea") || texto.includes("examen") || texto.includes("hazme")) {
+    respuesta = "Por política de Tutorías Valencia, no resolvemos tareas ni exámenes; nuestro enfoque es explicarte paso a paso para que aprendas de verdad. ¿Te agendamos una sesión de repaso?";
+  } 
+  else {
+    respuesta = "Entiendo. Para darte una atención más personalizada, por favor escríbenos directamente por WhatsApp al 315 887 6852 o al correo pipevalenciamena5@gmail.com.";
+  }
+
+  return respuesta;
+}
